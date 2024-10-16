@@ -21,7 +21,18 @@ import re
 # Streamlit secrets 사용하여 OpenAI API 키 불러오기
 openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에 설정 필요
 
-print(openai_api_key)
+uploaded_file = st.file_uploader("Upload a PDF", type=["pdf"])
+if uploaded_file is not None:
+    # PyMuPDF를 사용하여 PDF 읽기
+    with fitz.open(stream=uploaded_file.read(), filetype="pdf") as doc:
+        text = ""
+        for page in doc:
+            text += page.get_text()
+    st.text_area("Extracted Text", text)
+
+
+st.write(openai_api_key)  # 디버깅 목적으로만 사용
+
 
 if __name__ == "__main__":
-    main()
+    st.write("Streamlit App is running!")
