@@ -19,7 +19,8 @@ import re
 
 ## 환경변수 불러오기
 # Streamlit secrets 사용하여 OpenAI API 키 불러오기
-openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에정 필요 설
+openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에 설정 필요
+
 
 ############################### 1단계 : PDF 문서를 벡터DB에 저장하는 함수들 ##########################
 ## 내가 파일을 업로드 하면 PDF_임시폴더 라는 폴더에 파일들이 저장되게 됨
@@ -61,7 +62,7 @@ def chunk_documents(documents: List[Document]) -> List[Document]:
 ## faiss를 사용해서
 ## 4: Document를 벡터DB로 저장
 def save_to_vector_store(documents: List[Document]) -> None:
-    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002", openai_api_key=openai_api_key)
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key)
     ## 어떤 AI 모델을 사용하여 임베딩을 할것인지 선언해준 것
     vector_store = FAISS.from_documents(documents, embedding=embeddings)
     vector_store.save_local("faiss_index")
@@ -74,7 +75,7 @@ def save_to_vector_store(documents: List[Document]) -> None:
 ## 사용자 질문에 대한 RAG 처리
 @st.cache_data
 def process_question(user_question):
-    embeddings = OpenAIEmbeddings(model="text-embedding-ada-002", openai_api_key=openai_api_key)
+    embeddings = OpenAIEmbeddings(model="text-embedding-3-small", openai_api_key=openai_api_key)
 
     ## 벡터 DB 호출
     new_db = FAISS.load_local("faiss_index", embeddings, allow_dangerous_deserialization=True)
@@ -168,5 +169,6 @@ def main():
         st.text(response)
         st.text(context)
 
+
 if __name__ == "__main__":
-    st.write("Streamlit App is running")
+    main()
