@@ -19,7 +19,7 @@ import re
 
 ## 환경변수 불러오기
 # Streamlit secrets 사용하여 OpenAI API 키 불러오기
-openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에정 필요 설
+openai_api_key = st.Secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에정 필요 설
 
 print(openai_api_key)
 
