@@ -1,6 +1,5 @@
 streamlit
 langchain
-faiss-cpu
 openai
 pymupdf
 langchain-openai
