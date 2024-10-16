@@ -19,9 +19,9 @@ import re
 
 ## 환경변수 불러오기
 # Streamlit secrets 사용하여 OpenAI API 키 불러오기
-openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에 설정 필요
+openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에정 필요 설
 
 print(openai_api_key)
 
 if __name__ == "__main__":
-    main()
+    st.write("Streamlit App is running")
