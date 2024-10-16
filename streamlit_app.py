@@ -21,16 +21,6 @@ import re
 # Streamlit secrets 사용하여 OpenAI API 키 불러오기
 openai_api_key = st.secrets["OPENAI_API_KEY"]  # 배포 시 secrets.toml에 설정 필요
 
-def save_uploadedfile(uploadedfile: UploadedFile) -> str:
-    temp_dir = "PDF_임시폴더"
-    if not os.path.exists(temp_dir):
-        os.makedirs(temp_dir)
-    file_path = os.path.join(temp_dir, uploadedfile.name)
-    with open(file_path, "wb") as f:
-        f.write(uploadedfile.read())
-    return file_path
-
-
 print(openai_api_key)
 
 if __name__ == "__main__":
